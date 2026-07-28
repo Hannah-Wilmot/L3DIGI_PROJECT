@@ -25,3 +25,63 @@ background-color: grey;
 .Text{
     margin-left: 20px;
 }
+
+.TaskInput{
+    float: right;
+    margin-right: 600px;
+    margin-top: 330px;
+}
+
+.input-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 1800%;
+  max-width: 500px;
+}
+
+.input-card input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-personal {
+  background-color: gray; 
+  color: black;
+}
+
+.btn-academic {
+  background-color: gray; 
+  color:black;
+}
