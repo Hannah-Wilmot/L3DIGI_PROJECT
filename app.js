@@ -68,6 +68,45 @@ function updateTreeImage() {
   }
 }
 
+// Function to calculate ratio, swap tree image, update UI colors, and log ratios
+function updateTreeImage() {
+  const totalTasks = tasks.length;
+
+  if (totalTasks === 0) {
+    document.body.className = 'state-balanced';
+    return;
+  }
+
+  // Count logged tasks by type
+  const academicCount = tasks.filter(task => task.category === 'academic').length;
+  const personalCount = tasks.filter(task => task.category === 'creative').length;
+
+  // Calculate percentage ratios
+  const academicRatio = (academicCount / totalTasks) * 100;
+  const personalRatio = (personalCount / totalTasks) * 100;
+
+  // Print ratio info back to the console
+  console.log(`Current Tasks: Total = ${totalTasks} | Academic = ${academicCount} | Personal = ${personalCount}`);
+  console.log(`Ratios -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
+
+ 
+
+  // Swap image paths & apply active state class to <body>
+  if (academicRatio >= 70) {
+    treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
+    document.body.className = 'state-academic';
+    console.log('Active Theme: Academic (Red)');
+  } else if (personalRatio >= 70) {
+    treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
+    document.body.className = 'state-personal';
+    console.log('Active Theme: Personal (Yellow)');
+  } else {
+    treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
+    document.body.className = 'state-balanced';
+    console.log('Active Theme: Balanced (Green)');
+  }
+}
+
 // Event Listeners
 addCreativeBtn.addEventListener('click', () => handleTaskSubmit('creative'));
 addAcademicBtn.addEventListener('click', () => handleTaskSubmit('academic'));
