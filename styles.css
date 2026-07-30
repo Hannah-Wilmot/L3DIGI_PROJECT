@@ -9,6 +9,10 @@
   pointer-events: none; /* Allows clicks to pass through to buttons/links */
 }
 
+h1,h3,p {
+  color: black;
+}
+
 .Headingtexts{
 margin-left: 60px;  
 }
@@ -87,3 +91,78 @@ background-color: grey;
   color:black;
 }
 
+/* Base Transition for smooth color fading */
+.btn,
+.ScrollableWindow,
+.Headingtexts h1 {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* 1. BALANCED STATE (Green Theme*/
+body.state-balanced .btn-personal,
+body.state-balanced .btn-academic {
+  background-color: #2e7d32; /* Forest Green */
+  color: #ffffff;
+}
+
+body.state-balanced .ScrollableWindow {
+  background-color: rgba(46, 125, 50, 0.85);
+}
+
+body.state-balanced h1{
+  color: black;
+}
+
+body.state-balanced h3{
+  color: black;
+}
+
+body.state-balanced p{
+  color: black;
+}
+
+/*  ACADEMIC STATE (Red/Dominant Theme*/
+body.state-academic .btn-personal,
+body.state-academic .btn-academic {
+  background-color: #c62828; /* Academic Red */
+  color: #ffffff;
+}
+
+body.state-academic .ScrollableWindow {
+  background-color: rgba(198, 40, 40, 0.85);
+}
+
+body.state-academic h1{
+  color: darkred;
+}
+
+body.state-academic h3{
+  color: darkred;
+}
+
+body.state-academic p{
+  color: darkred;
+}
+
+/* 3. PERSONAL STATE (Yellow/Creative Theme*/
+body.state-personal .btn-personal,
+body.state-personal .btn-academic {
+  background-color: #f57f17; /* Personal Warm Yellow/Amber */
+  color: #ffffff;
+}
+
+body.state-personal .ScrollableWindow {
+  background-color: rgba(245, 127, 23, 0.85);
+}
+
+body.state-personal h1{
+  color: yellow;
+}
+
+body.state-personal h3{
+  color: yellow;
+}
+
+body.state-personal p{
+  color: yellow;
+}

@@ -35,38 +35,36 @@ function handleTaskSubmit(category) {
   updateTreeImage();
 }
 
-// Function to calculate ratio and swap tree image
+// Function to calculate ratio and swap tree image + UI theme
 function updateTreeImage() {
   const totalTasks = tasks.length;
 
-  if (totalTasks === 0) return;
-
-  // Count logged tasks by type
-  const academicCount = tasks.filter(task => task.category === 'academic').length;
-  const personalCount = tasks.filter(task => task.category === 'creative').length;
-
-  // Calculate percentage ratios
-  const academicRatio = (academicCount / totalTasks) * 100;
-  const personalRatio = (personalCount / totalTasks) * 100;
-
-  console.log(`Current Ratio -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
-
-  // Safety check: ensure treeImg element exists before changing src
-  if (!treeImg) {
-    console.error('Error: Could not find image element with id="treeImg" in index.html');
+  if (totalTasks === 0) {
+    document.body.className = 'state-balanced';
     return;
   }
 
-  // Swap image based on dominant ratio (>= 70%), otherwise stay balanced
+  const academicCount = tasks.filter(task => task.category === 'academic').length;
+  const personalCount = tasks.filter(task => task.category === 'creative').length;
+
+  const academicRatio = (academicCount / totalTasks) * 100;
+  const personalRatio = (personalCount / totalTasks) * 100;
+
+  if (!treeImg) {
+    console.error('Error: Could not find element with id="treeImg"');
+    return;
+  }
+
+  // Swap image paths & update Body Theme Class
   if (academicRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
-    console.log('Tree updated to: Academic');
+    document.body.className = 'state-academic'; // Apply Academic Theme
   } else if (personalRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
-    console.log('Tree updated to: Personal');
+    document.body.className = 'state-personal'; // Apply Personal Theme
   } else {
     treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
-    console.log('Tree updated to: Balanced (Green)');
+    document.body.className = 'state-balanced'; // Apply Balanced Theme
   }
 }
 
