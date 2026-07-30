@@ -1,4 +1,4 @@
-img {
+.TreeElement img {
   position: fixed;   
   top: 0;
   left: 0;
@@ -30,9 +30,10 @@ background-color: grey;
     float: right;
     margin-right: 600px;
     margin-top: 330px;
+    
 }
 
-.input-card {
+.Inputcard {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -40,7 +41,7 @@ background-color: grey;
   max-width: 500px;
 }
 
-.input-card input {
+.Inputcard input {
   width: 100%;
   padding: 10px 14px;
   border: 1px solid #cbd5e1;
@@ -85,3 +86,4 @@ background-color: grey;
   background-color: gray; 
   color:black;
 }
+
