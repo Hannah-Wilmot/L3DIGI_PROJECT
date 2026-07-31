@@ -1,6 +1,6 @@
 console.log("Script loaded successfully!");
 
-// Array to log tasks with their types
+// Global tasks array
 let tasks = [];
 
 // DOM Elements
@@ -8,34 +8,60 @@ const taskInput = document.getElementById('taskInput');
 const addCreativeBtn = document.getElementById('addCreativeBtn');
 const addAcademicBtn = document.getElementById('addAcademicBtn');
 const treeImg = document.getElementById('treeImg');
+const taskListContainer = document.getElementById('taskList');
 
-// Function called when a category button is clicked
+// Preload tree images
+const imagePaths = [
+  'Images/TreePLACEHOLDER(red).jpg',
+  'Images/TreePLACEHOLDER(yellow).jpg',
+  'Images/TreePLACEHOLDER(green).jpg'
+];
+imagePaths.forEach(src => { new Image().src = src; });
+
+// 1. Function to handle adding a task from input
 function handleTaskSubmit(category) {
   const taskText = taskInput.value.trim();
   
-  // 1. Prevent empty inputs
   if (taskText === '') {
     alert('Please enter a task name first!');
     return;
   }
 
-  // 2. Log task with its category into the tasks array
   tasks.push({ 
     text: taskText, 
     category: category 
   });
-  
-  console.log('Task Logged:', { text: taskText, category: category });
-  console.log('All Tasks Logged So Far:', tasks);
 
-  // 3. Clear the input box
+  localStorage.setItem('userTasks', JSON.stringify(tasks));
   taskInput.value = '';
-
-  // 4. Calculate ratio and update tree image
+  
+  renderTaskLog();
   updateTreeImage();
 }
 
-// Function to calculate ratio and swap tree image + UI theme
+// 2. Function to render logged tasks onto the page
+function renderTaskLog() {
+  if (!taskListContainer) return;
+
+  taskListContainer.innerHTML = '';
+
+  if (tasks.length === 0) {
+    taskListContainer.innerHTML = '<p class="empty-msg">No tasks logged yet.</p>';
+    return;
+  }
+
+  tasks.forEach((task) => {
+    const taskItem = document.createElement('div');
+    taskItem.className = `task-item task-${task.category}`;
+    taskItem.innerHTML = `
+      <span class="task-text">${task.text}</span>
+      <span class="task-badge">${task.category}</span>
+    `;
+    taskListContainer.appendChild(taskItem);
+  });
+}
+
+// 3. Function to update ratio calculations, tree image, and UI colors
 function updateTreeImage() {
   const totalTasks = tasks.length;
 
@@ -49,67 +75,52 @@ function updateTreeImage() {
 
   const academicRatio = (academicCount / totalTasks) * 100;
   const personalRatio = (personalCount / totalTasks) * 100;
+
+  console.log(`Current Tasks: Total = ${totalTasks} | Academic = ${academicCount} | Personal = ${personalCount}`);
+  console.log(`Ratios -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
 
   if (!treeImg) {
     console.error('Error: Could not find element with id="treeImg"');
     return;
   }
 
-  // Swap image paths & update Body Theme Class
-  if (academicRatio >= 70) {
-    treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
-    document.body.className = 'state-academic'; // Apply Academic Theme
-  } else if (personalRatio >= 70) {
-    treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
-    document.body.className = 'state-personal'; // Apply Personal Theme
-  } else {
-    treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
-    document.body.className = 'state-balanced'; // Apply Balanced Theme
-  }
-}
-
-// Function to calculate ratio, swap tree image, update UI colors, and log ratios
-function updateTreeImage() {
-  const totalTasks = tasks.length;
-
-  if (totalTasks === 0) {
-    document.body.className = 'state-balanced';
-    return;
-  }
-
-  // Count logged tasks by type
-  const academicCount = tasks.filter(task => task.category === 'academic').length;
-  const personalCount = tasks.filter(task => task.category === 'creative').length;
-
-  // Calculate percentage ratios
-  const academicRatio = (academicCount / totalTasks) * 100;
-  const personalRatio = (personalCount / totalTasks) * 100;
-
-  // Print ratio info back to the console
-  console.log(`Current Tasks: Total = ${totalTasks} | Academic = ${academicCount} | Personal = ${personalCount}`);
-  console.log(`Ratios -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
-
- 
-
-  // Swap image paths & apply active state class to <body>
   if (academicRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
     document.body.className = 'state-academic';
-    console.log('Active Theme: Academic (Red)');
   } else if (personalRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
     document.body.className = 'state-personal';
-    console.log('Active Theme: Personal (Yellow)');
   } else {
     treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
     document.body.className = 'state-balanced';
-    console.log('Active Theme: Balanced (Green)');
   }
 }
 
-// Event Listeners
-addCreativeBtn.addEventListener('click', () => handleTaskSubmit('creative'));
-addAcademicBtn.addEventListener('click', () => handleTaskSubmit('academic'));
+// 4. Function to load data from localStorage or tasks.json
+async function loadInitialTasks() {
+  const savedTasks = localStorage.getItem('userTasks');
+  
+  if (savedTasks) {
+    tasks = JSON.parse(savedTasks);
+  } else {
+    try {
+      const response = await fetch('data.json');
+      tasks = await response.json();
+      localStorage.setItem('userTasks', JSON.stringify(tasks));
+    } catch (error) {
+      console.log('No default tasks.json found or error loading it:', error);
+      tasks = [];
+    }
+  }
 
-// Preload tree images so swapping is instant
-['Images/TreePLACEHOLDER(red).jpg', 'Images/TreePLACEHOLDER(yellow).jpg', 'Images/TreePLACEHOLDER(green).jpg'].forEach(src => { new Image().src = src; });
+  renderTaskLog();
+  updateTreeImage();
+}
+
+// Event Listeners
+addCreativeBtn?.addEventListener('click', () => handleTaskSubmit('creative'));
+addAcademicBtn?.addEventListener('click', () => handleTaskSubmit('academic'));
+
+// Start app by loading data
+loadInitialTasks();
+
