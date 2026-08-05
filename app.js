@@ -105,6 +105,12 @@ async function loadInitialTasks() {
   } else {
     try {
       const response = await fetch('data.json');
+      
+      // Check if response is valid (prevents parsing HTML 404 pages as JSON)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       tasks = await response.json();
       localStorage.setItem('userTasks', JSON.stringify(tasks));
     } catch (error) {
@@ -123,5 +129,3 @@ addAcademicBtn?.addEventListener('click', () => handleTaskSubmit('academic'));
 
 // Start app by loading data
 loadInitialTasks();
-
-const response = await fetch('data.json');
