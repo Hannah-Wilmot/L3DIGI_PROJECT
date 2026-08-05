@@ -96,7 +96,7 @@ function updateTreeImage() {
   }
 }
 
-// 4. Function to load data from localStorage or tasks.json
+// 4. Function to load data from localStorage or data.json
 async function loadInitialTasks() {
   const savedTasks = localStorage.getItem('userTasks');
   
@@ -108,7 +108,7 @@ async function loadInitialTasks() {
       tasks = await response.json();
       localStorage.setItem('userTasks', JSON.stringify(tasks));
     } catch (error) {
-      console.log('No default tasks.json found or error loading it:', error);
+      console.log('No default data.json found or error loading it:', error);
       tasks = [];
     }
   }
