@@ -124,3 +124,4 @@ addAcademicBtn?.addEventListener('click', () => handleTaskSubmit('academic'));
 // Start app by loading data
 loadInitialTasks();
 
+const response = await fetch('data.json');
