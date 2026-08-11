@@ -138,7 +138,7 @@ background-color: grey;
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
-/* 1. BALANCED STATE (Green Theme*/
+/* 1. BALANCED STATE (Green Theme) */
 body.state-balanced .btn-personal,
 body.state-balanced .btn-academic {
   background-color: #2e7d32; /* Forest Green */
@@ -161,7 +161,7 @@ body.state-balanced p{
   color: black;
 }
 
-/*  ACADEMIC STATE (Red/Dominant Theme*/
+/* ACADEMIC STATE (Red/Dominant Theme) */
 body.state-academic .btn-personal,
 body.state-academic .btn-academic {
   background-color: #c62828; /* Academic Red */
@@ -184,7 +184,24 @@ body.state-academic p{
   color: darkred;
 }
 
-/* 3. PERSONAL STATE (Yellow/Creative Theme*/
+/* LIGHT ACADEMIC STATE (orange) */
+body.state-academic-light .btn-personal,
+body.state-academic-light .btn-academic {
+  background-color: #e65100;
+  color: #ffffff;
+}
+
+body.state-academic-light .ScrollableWindow {
+  background-color: rgba(230, 81, 0, 0.85);
+}
+
+body.state-academic-light h1,
+body.state-academic-light h3,
+body.state-academic-light p {
+  color: #b71c1c;
+}
+
+/* PERSONAL STATE (Yellow/Creative Theme) */
 body.state-personal .btn-personal,
 body.state-personal .btn-academic {
   background-color: #f57f17; /* Personal Warm Yellow/Amber */
@@ -205,4 +222,21 @@ body.state-personal h3{
 
 body.state-personal p{
   color: yellow;
+}
+
+/* LIGHT PERSONAL STATE (blue) */
+body.state-personal-light .btn-personal,
+body.state-personal-light .btn-academic {
+  background-color: #23ddf5;
+  color: #ffffff;
+}
+
+body.state-personal-light .ScrollableWindow {
+  background-color:#79efff;
+}
+
+body.state-personal-light h1,
+body.state-personal-light h3,
+body.state-personal-light p {
+  color: #00a2d8;
 }

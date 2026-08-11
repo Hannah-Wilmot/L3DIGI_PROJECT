@@ -13,8 +13,10 @@ const taskListContainer = document.getElementById('taskList');
 // Preload tree images
 const imagePaths = [
   'Images/TreePLACEHOLDER(red).jpg',
-  'Images/TreePLACEHOLDER(yellow).jpg',
-  'Images/TreePLACEHOLDER(green).jpg'
+  'Images/TreePLACEHOLDER(orange).jpg',
+  'Images/TreePLACEHOLDER(green).jpg',
+  'Images/TreePLACEHOLDER(blue).jpg',
+  'Images/TreePLACEHOLDER(yellow).jpg'
 ];
 imagePaths.forEach(src => { new Image().src = src; });
 
@@ -67,6 +69,7 @@ function updateTreeImage() {
 
   if (totalTasks === 0) {
     document.body.className = 'state-balanced';
+    if (treeImg) treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
     return;
   }
 
@@ -87,9 +90,15 @@ function updateTreeImage() {
   if (academicRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
     document.body.className = 'state-academic';
+  } else if (academicRatio >= 60) {
+    treeImg.src = 'Images/TreePLACEHOLDER(orange).jpg';
+    document.body.className = 'state-academic-light';
   } else if (personalRatio >= 70) {
     treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
     document.body.className = 'state-personal';
+  } else if (personalRatio >= 60) {
+    treeImg.src = 'Images/TreePLACEHOLDER(blue).jpg';
+    document.body.className = 'state-personal-light';
   } else {
     treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
     document.body.className = 'state-balanced';
