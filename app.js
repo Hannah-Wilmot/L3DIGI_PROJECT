@@ -63,7 +63,7 @@ function renderTaskLog() {
   });
 }
 
-// 3. Function to update ratio calculations, tree image, and UI colors
+// 3. Function to update ratio calculations based on RECENT 12 tasks, tree image, and UI colors
 function updateTreeImage() {
   const totalTasks = tasks.length;
 
@@ -73,33 +73,42 @@ function updateTreeImage() {
     return;
   }
 
-  const academicCount = tasks.filter(task => task.category === 'academic').length;
-  const personalCount = tasks.filter(task => task.category === 'creative').length;
+  // Look only at the most recent 12 tasks logged
+  const recentTasks = tasks.slice(-12);
+  const recentTotal = recentTasks.length;
 
-  const academicRatio = (academicCount / totalTasks) * 100;
-  const personalRatio = (personalCount / totalTasks) * 100;
+  const academicCount = recentTasks.filter(task => task.category === 'academic').length;
+  const personalCount = recentTasks.filter(task => task.category === 'creative').length;
 
-  console.log(`Current Tasks: Total = ${totalTasks} | Academic = ${academicCount} | Personal = ${personalCount}`);
-  console.log(`Ratios -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
+  const academicRatio = (academicCount / recentTotal) * 100;
+  const personalRatio = (personalCount / recentTotal) * 100;
+
+  console.log(`Recent Tasks Window (Last ${recentTotal}): Academic = ${academicCount} | Personal = ${personalCount}`);
+  console.log(`Recent Ratios -> Academic: ${academicRatio.toFixed(1)}% | Personal: ${personalRatio.toFixed(1)}%`);
 
   if (!treeImg) {
     console.error('Error: Could not find element with id="treeImg"');
     return;
   }
 
-  if (academicRatio >= 70) {
+  if (academicRatio >= 66) {
+   
     treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
     document.body.className = 'state-academic';
-  } else if (academicRatio >= 60) {
+  } else if (academicRatio >= 58) {
+
     treeImg.src = 'Images/TreePLACEHOLDER(orange).jpg';
     document.body.className = 'state-academic-light';
-  } else if (personalRatio >= 70) {
+  } else if (personalRatio >= 66) {
+   
     treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
     document.body.className = 'state-personal';
-  } else if (personalRatio >= 60) {
+  } else if (personalRatio >= 58) {
+
     treeImg.src = 'Images/TreePLACEHOLDER(blue).jpg';
     document.body.className = 'state-personal-light';
   } else {
+
     treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
     document.body.className = 'state-balanced';
   }
@@ -115,7 +124,6 @@ async function loadInitialTasks() {
     try {
       const response = await fetch('data.json');
       
-      // Check if response is valid (prevents parsing HTML 404 pages as JSON)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
