@@ -9,8 +9,12 @@
   pointer-events: none; /* Allows clicks to pass through to buttons/links */
 }
 
-h1,h3,p {
+h1,h2,h3,p {
   color: black;
+}
+
+h1{
+  font-size:60px;
 }
 
 .Headingtexts{
@@ -153,6 +157,10 @@ body.state-balanced h1{
   color: black;
 }
 
+body.state-balanced h2{
+  color: black;
+}
+
 body.state-balanced h3{
   color: black;
 }
@@ -176,6 +184,10 @@ body.state-academic h1{
   color: darkred;
 }
 
+body.state-academic h2{
+  color: darkred;
+}
+
 body.state-academic h3{
   color: darkred;
 }
@@ -196,6 +208,7 @@ body.state-academic-light .ScrollableWindow {
 }
 
 body.state-academic-light h1,
+body.state-academic-light h2,
 body.state-academic-light h3,
 body.state-academic-light p {
   color: #b71c1c;
@@ -213,6 +226,10 @@ body.state-personal .ScrollableWindow {
 }
 
 body.state-personal h1{
+  color: yellow;
+}
+
+body.state-personal h2{
   color: yellow;
 }
 
@@ -236,6 +253,7 @@ body.state-personal-light .ScrollableWindow {
 }
 
 body.state-personal-light h1,
+body.state-personal-light h2,
 body.state-personal-light h3,
 body.state-personal-light p {
   color: #00a2d8;
