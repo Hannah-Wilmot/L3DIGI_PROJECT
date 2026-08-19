@@ -13,28 +13,27 @@ h1,h2,h3,p {
   color: black;
 }
 
-h1{
-  font-size:60px;
+h1 {
+  font-size: 60px;
 }
 
-.Headingtexts{
-margin-left: 60px;  
+.Headingtexts {
+  margin-left: 60px;  
 }
 
-.ScrollableWindow{
-width: 500px;
-height: 450px;
-float: left;
-margin-top: 50px;
-margin-left: 60px;
-background-color: grey;
+.ScrollableWindow {
+  width: 500px;
+  height: 450px;
+  float: left;
+  margin-top: 40px;
+  margin-left: 60px;
+  background-color: grey;
 
-/* 3. Enable vertical scrolling for overflow content */
+  /* Enable vertical scrolling for overflow content */
   overflow-y: auto;
   overflow-x: hidden;    /* Prevent horizontal shaking/scroll */
 
   box-sizing: border-box;
-
 }
 
 .ScrollableWindow::-webkit-scrollbar {
@@ -55,7 +54,6 @@ background-color: grey;
   background: rgba(0, 0, 0, 0.4);
 }
 
-
 /* Ensure long text wraps nicely inside task items */
 .task-item {
   width: 100%;
@@ -68,17 +66,14 @@ background-color: grey;
   word-break: break-word;
   white-space: normal;
   max-width: 70%; /* Keeps text from squeezing against the category tag */
+  margin-left: 40px;
 }
 
-.Text{
-    margin-left: 20px;
-}
-
-.TaskInput{
+/* RESTORED ORIGINAL TASK INPUT CSS */
+.TaskInput {
     float: right;
     margin-right: 600px;
-    margin-top: 330px;
-    
+    margin-top: 260px;
 }
 
 .Inputcard {
@@ -132,20 +127,74 @@ background-color: grey;
 
 .btn-academic {
   background-color: gray; 
-  color:black;
+  color: black;
 }
 
 /* Base Transition for smooth color fading */
 .btn,
 .ScrollableWindow,
-.Headingtexts h1 {
+.Headingtexts h1,
+.log-body,
+.log-category,
+.log-time {
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* NESTED SCROLLABLE TASK BOX */
+.log-divider {
+  margin: 20px 0 10px 0;
+  border: 0;
+}
+
+.NestedTaskBox {
+  max-height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.NestedTaskBox::-webkit-scrollbar {
+  width: 4px;
+}
+
+.NestedTaskBox::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+/* TASK ENTRIES WITH NO BACKGROUND COLOR */
+.task-log-entry {
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 8px 0;
+  margin-bottom: 6px;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: bold;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.log-body {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.empty-msg {
+  font-style: italic;
+  opacity: 0.7;
 }
 
 /* 1. BALANCED STATE (Green Theme) */
 body.state-balanced .btn-personal,
 body.state-balanced .btn-academic {
-  background-color: #2e7d32; /* Forest Green */
+  background-color: #2e7d32;
   color: #ffffff;
 }
 
@@ -153,26 +202,20 @@ body.state-balanced .ScrollableWindow {
   background-color: rgba(46, 125, 50, 0.85);
 }
 
-body.state-balanced h1{
+body.state-balanced h1,
+body.state-balanced h2,
+body.state-balanced h3,
+body.state-balanced p,
+body.state-balanced .log-body,
+body.state-balanced .log-category,
+body.state-balanced .log-time {
   color: black;
 }
 
-body.state-balanced h2{
-  color: black;
-}
-
-body.state-balanced h3{
-  color: black;
-}
-
-body.state-balanced p{
-  color: black;
-}
-
-/* ACADEMIC STATE (Red/Dominant Theme) */
+/* ACADEMIC STATE (Red Theme) */
 body.state-academic .btn-personal,
 body.state-academic .btn-academic {
-  background-color: #c62828; /* Academic Red */
+  background-color: #c62828;
   color: #ffffff;
 }
 
@@ -180,23 +223,17 @@ body.state-academic .ScrollableWindow {
   background-color: rgba(198, 40, 40, 0.85);
 }
 
-body.state-academic h1{
+body.state-academic h1,
+body.state-academic h2,
+body.state-academic h3,
+body.state-academic p,
+body.state-academic .log-body,
+body.state-academic .log-category,
+body.state-academic .log-time {
   color: darkred;
 }
 
-body.state-academic h2{
-  color: darkred;
-}
-
-body.state-academic h3{
-  color: darkred;
-}
-
-body.state-academic p{
-  color: darkred;
-}
-
-/* LIGHT ACADEMIC STATE (orange) */
+/* LIGHT ACADEMIC STATE (Orange Theme) */
 body.state-academic-light .btn-personal,
 body.state-academic-light .btn-academic {
   background-color: #e65100;
@@ -210,14 +247,17 @@ body.state-academic-light .ScrollableWindow {
 body.state-academic-light h1,
 body.state-academic-light h2,
 body.state-academic-light h3,
-body.state-academic-light p {
+body.state-academic-light p,
+body.state-academic-light .log-body,
+body.state-academic-light .log-category,
+body.state-academic-light .log-time {
   color: #b71c1c;
 }
 
-/* PERSONAL STATE (Yellow/Creative Theme) */
+/* PERSONAL STATE (Yellow/Amber Theme) */
 body.state-personal .btn-personal,
 body.state-personal .btn-academic {
-  background-color: #f57f17; /* Personal Warm Yellow/Amber */
+  background-color: #f57f17;
   color: #ffffff;
 }
 
@@ -225,23 +265,17 @@ body.state-personal .ScrollableWindow {
   background-color: rgba(245, 127, 23, 0.85);
 }
 
-body.state-personal h1{
+body.state-personal h1,
+body.state-personal h2,
+body.state-personal h3,
+body.state-personal p,
+body.state-personal .log-body,
+body.state-personal .log-category,
+body.state-personal .log-time {
   color: yellow;
 }
 
-body.state-personal h2{
-  color: yellow;
-}
-
-body.state-personal h3{
-  color: yellow;
-}
-
-body.state-personal p{
-  color: yellow;
-}
-
-/* LIGHT PERSONAL STATE (blue) */
+/* LIGHT PERSONAL STATE (Blue Theme) */
 body.state-personal-light .btn-personal,
 body.state-personal-light .btn-academic {
   background-color: #23ddf5;
@@ -249,12 +283,15 @@ body.state-personal-light .btn-academic {
 }
 
 body.state-personal-light .ScrollableWindow {
-  background-color:#79efff;
+  background-color: #79efff;
 }
 
 body.state-personal-light h1,
 body.state-personal-light h2,
 body.state-personal-light h3,
-body.state-personal-light p {
+body.state-personal-light p,
+body.state-personal-light .log-body,
+body.state-personal-light .log-category,
+body.state-personal-light .log-time {
   color: #00a2d8;
 }

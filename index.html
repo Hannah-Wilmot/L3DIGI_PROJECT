@@ -11,14 +11,12 @@
 <body>
     <div class="Headingtexts">
         <h1>TaskTree</h1>
-
         <h2>TASK MANAGEMENT TOOL</h2>
     </div>
 
     <div class="TreeElement">
         <img id="treeImg" src="Images/TreePLACEHOLDER(green).jpg" alt="TreePLACEHOLDER(green)">
     </div>
-
 
     <div class="TaskInput">
         <div class="Inputcard">
@@ -31,9 +29,7 @@
         </div>
     </div>
 
-
     <div class="ScrollableWindow">
-
         <div class="Text">
             <h3>Welcome to TaskTree!</h3>
             <p class="quote">
@@ -49,31 +45,27 @@
                 <br>
                 It grows based on how you spend your time. You can input tasks and label
                 them as either 'academic' or 'personal', and the digital tree will change whether your activities are
-                balanced ( a nice green tree) or if there is an imbalance in academics (a grey dead tree), or a
+                balanced (a nice green tree) or if there is an imbalance in academics (a grey dead tree), or a
                 creative/personal imbalance (wild colours). The different stages of the tree communicate to students how
                 much of their time is being spent on too much of the same thing which can often be a cause of stress or
                 procrastination.
-
             </p>
+
+            <hr class="log-divider">
+            <h3>Logged Tasks</h3>
+            
+            <!-- Dedicated Nested Scrollable Box for Tasks -->
+            <div class="NestedTaskBox">
+                <div id="taskLogContainer"></div>
+            </div>
         </div>
-
     </div>
 
+    <div class="TaskLog"></div>
 
-    <div class="TaskLog">
-
-    </div>
-
-
-    <div class="PromodoroTimer">
-
-    </div>
-
-
-    </div>
+    <div class="PromodoroTimer"></div>
 
     <script src="app.js"></script>
-
 </body>
 
 </html>

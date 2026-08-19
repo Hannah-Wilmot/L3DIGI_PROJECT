@@ -8,7 +8,6 @@ const taskInput = document.getElementById('taskInput');
 const addCreativeBtn = document.getElementById('addCreativeBtn');
 const addAcademicBtn = document.getElementById('addAcademicBtn');
 const treeImg = document.getElementById('treeImg');
-const taskListContainer = document.getElementById('taskList');
 
 // Preload tree images
 const imagePaths = [
@@ -29,9 +28,14 @@ function handleTaskSubmit(category) {
     return;
   }
 
+  // Generate date and time stamp
+  const now = new Date();
+  const timeString = now.toLocaleDateString() + ' | ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
   tasks.push({ 
     text: taskText, 
-    category: category 
+    category: category,
+    timestamp: timeString
   });
 
   localStorage.setItem('userTasks', JSON.stringify(tasks));
@@ -41,25 +45,34 @@ function handleTaskSubmit(category) {
   updateTreeImage();
 }
 
-// 2. Function to render logged tasks onto the page
+// 2. Function to render logged tasks with date/time into nested scrollbox
 function renderTaskLog() {
-  if (!taskListContainer) return;
+  const logContainer = document.getElementById('taskLogContainer');
+  if (!logContainer) return;
 
-  taskListContainer.innerHTML = '';
+  logContainer.innerHTML = '';
 
   if (tasks.length === 0) {
-    taskListContainer.innerHTML = '<p class="empty-msg">No tasks logged yet.</p>';
+    logContainer.innerHTML = '<p class="empty-msg">No tasks logged yet.</p>';
     return;
   }
 
-  tasks.forEach((task) => {
+  // Render tasks with newest on top
+  tasks.slice().reverse().forEach((task) => {
     const taskItem = document.createElement('div');
-    taskItem.className = `task-item task-${task.category}`;
+    taskItem.className = `task-log-entry task-${task.category}`;
+    
+    const dateText = task.timestamp ? task.timestamp : 'Previously logged';
+
+    // Removed square brackets around category text
     taskItem.innerHTML = `
-      <span class="task-text">${task.text}</span>
-      <span class="task-badge">${task.category}</span>
+      <div class="log-header">
+        <span class="log-category">${task.category.toUpperCase()}</span>
+        <span class="log-time">${dateText}</span>
+      </div>
+      <div class="log-body">${task.text}</div>
     `;
-    taskListContainer.appendChild(taskItem);
+    logContainer.appendChild(taskItem);
   });
 }
 
@@ -92,23 +105,18 @@ function updateTreeImage() {
   }
 
   if (academicRatio >= 66) {
-   
     treeImg.src = 'Images/TreePLACEHOLDER(red).jpg';
     document.body.className = 'state-academic';
   } else if (academicRatio >= 58) {
-
     treeImg.src = 'Images/TreePLACEHOLDER(orange).jpg';
     document.body.className = 'state-academic-light';
   } else if (personalRatio >= 66) {
-   
     treeImg.src = 'Images/TreePLACEHOLDER(yellow).jpg';
     document.body.className = 'state-personal';
   } else if (personalRatio >= 58) {
-
     treeImg.src = 'Images/TreePLACEHOLDER(blue).jpg';
     document.body.className = 'state-personal-light';
   } else {
-
     treeImg.src = 'Images/TreePLACEHOLDER(green).jpg';
     document.body.className = 'state-balanced';
   }
@@ -122,7 +130,7 @@ async function loadInitialTasks() {
     tasks = JSON.parse(savedTasks);
   } else {
     try {
-      const response = await fetch('data.json');
+      const response = await fetch('./data.json');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -131,7 +139,7 @@ async function loadInitialTasks() {
       tasks = await response.json();
       localStorage.setItem('userTasks', JSON.stringify(tasks));
     } catch (error) {
-      console.log('No default data.json found or error loading it:', error);
+      console.log('No default data.json loaded, starting empty:', error);
       tasks = [];
     }
   }
