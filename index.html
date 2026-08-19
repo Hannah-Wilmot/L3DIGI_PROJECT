@@ -40,7 +40,7 @@
 
             <p>A digital plant that lives in your web-browser to help students manage school-life balance which will
                 help maintain the motivation to continue putting effort into academics as well as keep their other time
-                management tools effective. 
+                management tools effective.
                 <br>
                 <br>
                 It grows based on how you spend your time. You can input tasks and label
@@ -53,10 +53,44 @@
 
             <hr class="log-divider">
             <h3>Logged Tasks</h3>
-            
+
             <!-- Dedicated Nested Scrollable Box for Tasks -->
             <div class="NestedTaskBox">
                 <div id="taskLogContainer"></div>
+            </div>
+
+            <hr class="log-divider">
+
+            <!-- Integrated Pomodoro Timer with Retracting SVG Progress Ring -->
+            <div class="PomodoroContainer">
+                <div class="pomo-circle-wrapper">
+                    <svg class="pomo-ring-svg" width="210" height="210" viewBox="0 0 210 210">
+                        <!-- Background static track -->
+                        <circle class="ring-bg" cx="105" cy="105" r="90" />
+                        <!-- Foreground animated progress stroke -->
+                        <circle id="pomoProgressRing" class="ring-progress" cx="105" cy="105" r="90" />
+                    </svg>
+
+                    <!-- Time display & adjustment buttons overlaid inside circle -->
+                    <div class="time-adjust-group">
+                        <button id="minusTimeBtn" class="btn pomo-adjust-btn" title="Subtract 1 minute">-</button>
+                        <span id="timerDisplay" class="timer-display">25:00</span>
+                        <button id="addTimeBtn" class="btn pomo-adjust-btn" title="Add 1 minute">+</button>
+                    </div>
+                </div>
+
+                <div class="pomo-text">
+                    <h3>Jump Into Your Next Task!</h3>
+                    <p>Use the Pomodoro technique to stay focused and productive. Set your timer, work on your task, and
+                        take breaks as needed.</p>
+                        <br>
+                </div>
+
+                <div class="pomo-controls">
+                    <button id="startTimerBtn" class="btn pomo-btn">Start</button>
+                    <button id="pauseTimerBtn" class="btn pomo-btn">Pause</button>
+                    <button id="resetTimerBtn" class="btn pomo-btn">Reset</button>
+                </div>
             </div>
         </div>
     </div>

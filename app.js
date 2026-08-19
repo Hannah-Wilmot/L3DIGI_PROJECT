@@ -3,11 +3,29 @@ console.log("Script loaded successfully!");
 // Global tasks array
 let tasks = [];
 
+// Pomodoro Timer State Variables
+let timerInterval = null;
+let totalSessionTime = 25 * 60; // Total starting seconds (default 25m)
+let timeLeft = totalSessionTime;
+let isBreak = false;
+
 // DOM Elements
 const taskInput = document.getElementById('taskInput');
 const addCreativeBtn = document.getElementById('addCreativeBtn');
 const addAcademicBtn = document.getElementById('addAcademicBtn');
 const treeImg = document.getElementById('treeImg');
+
+// Timer DOM Elements
+const timerDisplay = document.getElementById('timerDisplay');
+const startTimerBtn = document.getElementById('startTimerBtn');
+const pauseTimerBtn = document.getElementById('pauseTimerBtn');
+const resetTimerBtn = document.getElementById('resetTimerBtn');
+const addTimeBtn = document.getElementById('addTimeBtn');
+const minusTimeBtn = document.getElementById('minusTimeBtn');
+const pomoProgressRing = document.getElementById('pomoProgressRing');
+
+// Ring circumference: 2 * Math.PI * r (where r = 90)
+const RING_CIRCUMFERENCE = 2 * Math.PI * 90;
 
 // Preload tree images
 const imagePaths = [
@@ -64,7 +82,6 @@ function renderTaskLog() {
     
     const dateText = task.timestamp ? task.timestamp : 'Previously logged';
 
-    // Removed square brackets around category text
     taskItem.innerHTML = `
       <div class="log-header">
         <span class="log-category">${task.category.toUpperCase()}</span>
@@ -122,7 +139,70 @@ function updateTreeImage() {
   }
 }
 
-// 4. Function to load data from localStorage or data.json
+// 4. Pomodoro Timer & Retracting Progress Ring Logic
+function updateTimerDisplay() {
+  if (!timerDisplay) return;
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+  // Update animated SVG stroke retraction
+  if (pomoProgressRing) {
+    const fraction = timeLeft / totalSessionTime;
+    const offset = RING_CIRCUMFERENCE * (1 - fraction);
+    pomoProgressRing.style.strokeDashoffset = offset;
+  }
+}
+
+function startTimer() {
+  if (timerInterval) return; // Prevent multiple timers
+
+  timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateTimerDisplay();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      
+      // Toggle between Work and Break
+      isBreak = !isBreak;
+      totalSessionTime = isBreak ? (5 * 60) : (25 * 60);
+      timeLeft = totalSessionTime;
+      
+      alert(isBreak ? "Work session over! Take a 5 minute break." : "Break over! Time to get back to work.");
+      updateTimerDisplay();
+      startTimer();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer() {
+  pauseTimer();
+  isBreak = false;
+  totalSessionTime = 25 * 60;
+  timeLeft = totalSessionTime;
+  updateTimerDisplay();
+}
+
+function adjustMinutes(amountInMinutes) {
+  const amountInSeconds = amountInMinutes * 60;
+  if (timeLeft + amountInSeconds >= 60) { // Don't go below 1 minute
+    timeLeft += amountInSeconds;
+    // Keep total session duration matched if user increases baseline
+    if (timeLeft > totalSessionTime) {
+      totalSessionTime = timeLeft;
+    }
+    updateTimerDisplay();
+  }
+}
+
+// 5. Function to load data from localStorage or data.json
 async function loadInitialTasks() {
   const savedTasks = localStorage.getItem('userTasks');
   
@@ -146,11 +226,19 @@ async function loadInitialTasks() {
 
   renderTaskLog();
   updateTreeImage();
+  updateTimerDisplay();
 }
 
 // Event Listeners
 addCreativeBtn?.addEventListener('click', () => handleTaskSubmit('creative'));
 addAcademicBtn?.addEventListener('click', () => handleTaskSubmit('academic'));
+
+// Timer Event Listeners
+startTimerBtn?.addEventListener('click', startTimer);
+pauseTimerBtn?.addEventListener('click', pauseTimer);
+resetTimerBtn?.addEventListener('click', resetTimer);
+addTimeBtn?.addEventListener('click', () => adjustMinutes(1));
+minusTimeBtn?.addEventListener('click', () => adjustMinutes(-1));
 
 // Start app by loading data
 loadInitialTasks();
