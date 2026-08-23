@@ -27,6 +27,7 @@ h1 {
   float: left;
   margin-top: 40px;
   margin-left: 60px;
+  margin-bottom: 20px;
   background-color: grey;
 
   /* Enable vertical scrolling for overflow content */
@@ -280,6 +281,15 @@ h1 {
    text-align: center;
 }
 
+.image-source {
+overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  /* Equal padding on left and right for balanced layout */
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-size: smaller;
+}
 
 /* Base Transition for smooth color fading */
 .btn,
