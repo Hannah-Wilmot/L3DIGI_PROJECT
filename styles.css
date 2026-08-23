@@ -375,6 +375,11 @@ body.state-academic .pomo-btn {
   color: #ffffff;
 }
 
+body.state-academic .pomo-btn {
+  background-color: white;
+  color: #595959;
+}
+
 body.state-academic .ScrollableWindow {
   background-color:#595959;
 }
