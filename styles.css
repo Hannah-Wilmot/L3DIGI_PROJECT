@@ -299,16 +299,14 @@ h1 {
 body.state-balanced .btn-personal,
 body.state-balanced .btn-academic,
 body.state-balanced .pomo-btn {
-  background-color: #2e7d32;
-  color: #ffffff;
+  background-color: #C1FF94;
+  color: #000000;
 }
 
 body.state-balanced .ScrollableWindow {
-  background-color: rgba(46, 125, 50, 0.85);
+  background-color: #69BA2F;
 }
 
-body.state-balanced h1,
-body.state-balanced h2,
 body.state-balanced h3,
 body.state-balanced p,
 body.state-balanced .log-body,
@@ -316,23 +314,36 @@ body.state-balanced .log-category,
 body.state-balanced .log-time,
 body.state-balanced .timer-display,
 body.state-balanced .pomo-adjust-btn {
-  color: black;
+  color: #000000;
+}
+
+body.state-balanced h1,
+body.state-balanced h2{
+  color:#C1FF94;
+}
+
+body.state-balanced h1{
+   -webkit-text-stroke: 3px #000000;
+}
+
+body.state-balanced h2{
+   -webkit-text-stroke:2 px #000000;
 }
 
 body.state-balanced .ring-progress {
-  stroke: black;
+  stroke: #000000;
 }
 
 /* 2. ACADEMIC STATE (Red Theme) */
 body.state-academic .btn-personal,
 body.state-academic .btn-academic,
 body.state-academic .pomo-btn {
-  background-color: #c62828;
+  background-color: #595959;
   color: #ffffff;
 }
 
 body.state-academic .ScrollableWindow {
-  background-color: rgba(198, 40, 40, 0.85);
+  background-color:#595959;
 }
 
 body.state-academic h1,
@@ -344,23 +355,23 @@ body.state-academic .log-category,
 body.state-academic .log-time,
 body.state-academic .timer-display,
 body.state-academic .pomo-adjust-btn {
-  color: darkred;
+  color: white;
 }
 
 body.state-academic .ring-progress {
-  stroke: darkred;
+  stroke: white;
 }
 
 /* 3. LIGHT ACADEMIC STATE (Orange Theme) */
 body.state-academic-light .btn-personal,
 body.state-academic-light .btn-academic,
 body.state-academic-light .pomo-btn {
-  background-color: #e65100;
-  color: #ffffff;
+  background-color: #012600;
+  color: #ACDE73
 }
 
 body.state-academic-light .ScrollableWindow {
-  background-color: rgba(230, 81, 0, 0.85);
+  background-color: #ACDE73;
 }
 
 body.state-academic-light h1,
@@ -372,23 +383,23 @@ body.state-academic-light .log-category,
 body.state-academic-light .log-time,
 body.state-academic-light .timer-display,
 body.state-academic-light .pomo-adjust-btn {
-  color: #b71c1c;
+  color: #012600;
 }
 
 body.state-academic-light .ring-progress {
-  stroke: #b71c1c;
+  stroke: #012600;
 }
 
 /* 4. PERSONAL STATE (Yellow/Amber Theme) */
 body.state-personal .btn-personal,
 body.state-personal .btn-academic,
 body.state-personal .pomo-btn {
-  background-color: #f57f17;
-  color: #ffffff;
+  background-color: yellow;
+  color: #800F37;
 }
 
 body.state-personal .ScrollableWindow {
-  background-color: rgba(245, 127, 23, 0.85);
+  background-color:#800F37;
 }
 
 body.state-personal h1,
@@ -404,19 +415,19 @@ body.state-personal .pomo-adjust-btn {
 }
 
 body.state-personal .ring-progress {
-  stroke: yellow;
+  stroke: #ffff00;
 }
 
 /* 5. LIGHT PERSONAL STATE (Blue Theme) */
 body.state-personal-light .btn-personal,
 body.state-personal-light .btn-academic,
 body.state-personal-light .pomo-btn {
-  background-color: #23ddf5;
-  color: #ffffff;
+  background-color: #FCEDFF;
+  color: #4D0D59;
 }
 
 body.state-personal-light .ScrollableWindow {
-  background-color: #79efff;
+  background-color: #4D0D59;
 }
 
 body.state-personal-light h1,
@@ -428,9 +439,9 @@ body.state-personal-light .log-category,
 body.state-personal-light .log-time,
 body.state-personal-light .timer-display,
 body.state-personal-light .pomo-adjust-btn {
-  color: #00a2d8;
+  color: #FCEDFF
 }
 
 body.state-personal-light .ring-progress {
-  stroke: #00a2d8;
+  stroke: #FCEDFF;
 }
