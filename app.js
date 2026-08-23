@@ -5,7 +5,7 @@ let tasks = [];
 
 // Pomodoro Timer State Variables
 let timerInterval = null;
-let totalSessionTime = 25 * 60; // Total starting seconds (default 25m)
+let totalSessionTime = 30 * 60; // Total starting seconds (default 30m)
 let timeLeft = totalSessionTime;
 let isBreak = false;
 
@@ -40,7 +40,7 @@ imagePaths.forEach(src => { new Image().src = src; });
 // 1. Function to handle adding a task from input
 function handleTaskSubmit(category) {
   const taskText = taskInput.value.trim();
-  
+
   if (taskText === '') {
     alert('Please enter a task name first!');
     return;
@@ -50,15 +50,15 @@ function handleTaskSubmit(category) {
   const now = new Date();
   const timeString = now.toLocaleDateString() + ' | ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  tasks.push({ 
-    text: taskText, 
+  tasks.push({
+    text: taskText,
     category: category,
     timestamp: timeString
   });
 
   localStorage.setItem('userTasks', JSON.stringify(tasks));
   taskInput.value = '';
-  
+
   renderTaskLog();
   updateTreeImage();
 }
@@ -79,7 +79,7 @@ function renderTaskLog() {
   tasks.slice().reverse().forEach((task) => {
     const taskItem = document.createElement('div');
     taskItem.className = `task-log-entry task-${task.category}`;
-    
+
     const dateText = task.timestamp ? task.timestamp : 'Previously logged';
 
     taskItem.innerHTML = `
@@ -164,13 +164,14 @@ function startTimer() {
     } else {
       clearInterval(timerInterval);
       timerInterval = null;
-      
+
       // Toggle between Work and Break
       isBreak = !isBreak;
-      totalSessionTime = isBreak ? (5 * 60) : (25 * 60);
+      totalSessionTime = isBreak ? (15 * 60) : (30 * 60);
       timeLeft = totalSessionTime;
-      
-      alert(isBreak ? "Work session over! Take a 5 minute break." : "Break over! Time to get back to work.");
+
+      alert(isBreak ? "Your task is done, congratulations! It's time to take a break."
+        : "Break time has finished, what task is next?");
       updateTimerDisplay();
       startTimer();
     }
@@ -185,7 +186,7 @@ function pauseTimer() {
 function resetTimer() {
   pauseTimer();
   isBreak = false;
-  totalSessionTime = 25 * 60;
+  totalSessionTime = 30 * 60;
   timeLeft = totalSessionTime;
   updateTimerDisplay();
 }
@@ -205,13 +206,13 @@ function adjustMinutes(amountInMinutes) {
 // 5. Function to load data from localStorage or data.json
 async function loadInitialTasks() {
   const savedTasks = localStorage.getItem('userTasks');
-  
+
   if (savedTasks) {
     tasks = JSON.parse(savedTasks);
   } else {
     try {
       const response = await fetch('./data.json');
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
