@@ -1,3 +1,26 @@
+/* Base Font Settings */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Main Headings (Montserrat) */
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 60px;
+}
+
+/* Subheadings (Nunito) */
+h2, h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+}
+
+/* Body Text & Inputs (Montserrat) */
+p, input, button, .log-body, .empty-msg, .image-source {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .TreeElement img {
   position: fixed;   
   top: 0;
